@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+        <tr>            
+            <td>ide_periodo</td>
+            <td>anual</td>
+            <td>mes</td>
+        </tr>
+    </thead>
+            
+    <tbody>
+        {% if object_list %}
+        {% for Periodo in object_list  %}
+        <tr>
+            <td>{{ Periodo.ide_periodo }}</td>
+            <td>{{ Periodo.anual }}</td>
+            <td>{{ Periodo.mes }}</td>           
+        <td> 
+                <a  class="btn btn-primary"  href="{% url 'periodo_editar' Periodo.ide_periodo %}">
+                Editar</a>
+            </td>
+
+        {% endfor  %}
+        {% else  %}
+        <h1>No hay registro de Periodo</h1>
+        {% endif %}
+        <td> 
+            <a  class="btn btn-primary"  href="{% url 'crear_periodo' %}">
+            Nuevo registro</a>
+        </td>
+
+    <tbody>
+</table>
+
+ 
+<div class="dataTables_paginate paging_simple_numbers"
+    id="datatable-buttons_paginate">
+    <ul class="pagination">
+        {%if page_obj.has_previous%}
+        <li class="paginate_button page-item previous" id="datatable-buttons_previous">
+            <a href="?page={{page_obj.previous_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Anterior</a>
+        </li>
+        {%endif%}
+        {%if page_obj.has_next%}
+        <li class="paginate_button page-item next" id="datatable-buttons_next">
+            <a href="?page={{page_obj.next_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Siguiente</a>
+        </li>  
+        {%endif%} 
+</div>
+
+{% endblock %}
+
+
+
+
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>listar cargo</title>
+    <link rel="stylesheet" href="{%static 'css/boostrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/boostrap.css'%}">
+</head>
+<body>
+    <table border="2">
+        <thead>
+            <tr>
+                <td>ide_periodo</td>
+                <td>anual</td>
+                <td>mes</td>
+            </tr>
+        </thead>
+        <tbody>
+            {%for Periodo in object_list%}
+            <tr>
+                <td>{{ Periodo.ide_periodo }}</td>
+                <td>{{ Periodo.anual }}</td>
+                <td>{{ Periodo.mes }}</td>
+            {%endfor%}
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>

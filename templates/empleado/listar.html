@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+        <tr>            
+            <td>ide_empleado</td>
+            <td>nombre</td>
+            <td>apellido</td>
+            <td>correo</td>
+            <td>telefono</td>
+            <td>numero_documento</td>
+            <td>tipo_documento</td>
+            <td>ide_cargos</td>
+            <td>ide_tipovinculacion</td>
+            <td>estado</td>
+        </tr>
+    </thead>
+            
+    <tbody>
+        {% if object_list %}
+        {% for Empleado in object_list  %}
+        <tr>
+            <td>{{ Empleado.ide_empleado }}</td>
+            <td>{{ Empleado.nombre }}</td>
+            <td>{{ Empleado.apellido }}</td>
+            <td>{{ Empleado.correo }}</td>
+            <td>{{ Empleado.telefono }}</td>
+            <td>{{ Empleado.numero_documento }}</td>
+            <td>{{ Empleado.tipo_documento }}</td>
+            <td>{{ Empleado.ide_cargos.nombre }}</td>
+            <td>{{ Empleado.ide_tipovinculacion.descripciontipo }}</td>
+            <td>{{ Empleado.estado }}</td>         
+            <td> 
+                <a  class="btn btn-primary"  href="{% url 'empleado_editar' Empleado.ide_empleado %}">
+                Editar</a>
+            </td>
+
+        {% endfor  %}
+        {% else  %}
+        <h1>No hay registro de cargos creados</h1>
+        {% endif %}
+        <td> 
+            <a  class="btn btn-primary"  href="{% url 'crear_empleado' %}">
+            Nuevo registro</a>
+        </td>
+        <td> 
+            <a  class="btn btn-primary"  href="{% url 'detalle_empleado' %}">
+            Detalle</a>
+        </td>   
+    <tbody>
+</table>
+
+ 
+<div class="dataTables_paginate paging_simple_numbers"
+    id="datatable-buttons_paginate">
+    <ul class="pagination">
+        {%if page_obj.has_previous%}
+        <li class="paginate_button page-item previous" id="datatable-buttons_previous">
+            <a href="?page={{page_obj.previous_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Anterior</a>
+        </li>
+        {%endif%}
+        {%if page_obj.has_next%}
+        <li class="paginate_button page-item next" id="datatable-buttons_next">
+            <a href="?page={{page_obj.next_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Siguiente</a>
+        </li>  
+        {%endif%} 
+</div>
+
+{% endblock %}
+
+
+

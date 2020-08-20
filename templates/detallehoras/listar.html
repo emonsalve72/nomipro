@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+        <tr>            
+            <td>ide_detallehoras</td>
+            <td>ide_nomina</td>
+            <td>ide_horasadicionales</td>
+            <td>total</td>
+            <td>cantidad</td>
+        </tr>
+    </thead>
+            
+    <tbody>
+        {% if object_list %}
+        {% for Detalle_Horas in object_list  %}
+        <tr>
+            <td>{{ Detalle_Horas.ide_detallehoras }}</td>
+            <td>{{ Detalle_Horas.ide_nomina }}</td>
+            <td>{{ Detalle_Horas.ide_horasadicionales }}</td>  
+            <td>{{ Detalle_Horas.total }}</td>
+            <td>{{ Detalle_Horas.cantidad }}</td>             
+            <td> 
+                <a  class="btn btn-primary"  href="{% url 'crear_detallehoras' Detalle_Horas.ide_detallehoras %}">
+                Editar</a>
+            </td>
+
+        {% endfor  %}
+        {% else  %}
+        <h1>No hay registro de detalle horas </h1>
+        {% endif %}
+        <td> 
+            <a  class="btn btn-primary"  href="{% url 'crear_detallehoras' %}">
+            Nuevo registro</a>
+        </td>
+
+    <tbody>
+</table>
+
+ 
+<div class="dataTables_paginate paging_simple_numbers"
+    id="datatable-buttons_paginate">
+    <ul class="pagination">
+        {%if page_obj.has_previous%}
+        <li class="paginate_button page-item previous" id="datatable-buttons_previous">
+            <a href="?page={{page_obj.previous_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Anterior</a>
+        </li>
+        {%endif%}
+        {%if page_obj.has_next%}
+        <li class="paginate_button page-item next" id="datatable-buttons_next">
+            <a href="?page={{page_obj.next_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Siguiente</a>
+        </li>  
+        {%endif%} 
+</div>
+
+{% endblock %}
+
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>listar detalle horas</title>
+    <link rel="stylesheet" href="{%static 'css/boostrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/boostrap.css'%}">
+</head>
+<body>
+    <table border="2">
+        <thead>
+            <tr>
+                <td>ide_detallehoras</td>
+                <td>ide_nomina</td>
+                <td>ide_horasadicionales</td>
+                <td>total</td>
+                <td>cantidad</td>
+            </tr>
+        </thead>
+        <tbody>
+            {%for Detalle_Horas in object_list%}
+            <tr>
+                <td>{{ Detalle_Horas.ide_detallehorass }}</td>
+                <td>{{ Detalle_Horas.ide_nomina }}</td>
+                <td>{{ Detalle_Horas.ide_horasadicionales }}</td>
+                <td>{{ Detalle_Horas.total }}</td>
+                <td>{{ Detalle_Horas.cantidad }}</td>
+            {%endfor%}
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+        <tr>            
+            <td>ide_reportehoras</td>
+            <td>ide_empleado</td>
+            <td>ide_periodo</td>
+            <td>numerohoras</td>
+        </tr>
+    </thead>
+            
+    <tbody>
+        {% if object_list %}
+        {% for Reporte_Horas in object_list  %}
+        <tr>
+            <td>{{ Reporte_Horas.ide_reportehoras }}</td>
+            <td>{{ Reporte_Horas.ide_empleado }}</td>
+            <td>{{ Reporte_Horas.ide_periodo }}</td>  
+            <td>{{ Reporte_Horas.numerohoras }}</td>           
+            <td> 
+                <a  class="btn btn-primary"  href="{% url 'editar_reportehoras' Reporte_Horas.ide_reportehoras %}">
+                Editar</a>
+            </td>
+
+        {% endfor  %}
+        {% else  %}
+        <h1>No hay registro de horas reportadas </h1>
+        {% endif %}
+        <td> 
+            <a  class="btn btn-primary"  href="{% url 'crear_reportehoras' %}">
+            Nuevo registro</a>
+        </td>
+
+    <tbody>
+</table>
+
+ 
+<div class="dataTables_paginate paging_simple_numbers"
+    id="datatable-buttons_paginate">
+    <ul class="pagination">
+        {%if page_obj.has_previous%}
+        <li class="paginate_button page-item previous" id="datatable-buttons_previous">
+            <a href="?page={{page_obj.previous_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Anterior</a>
+        </li>
+        {%endif%}
+        {%if page_obj.has_next%}
+        <li class="paginate_button page-item next" id="datatable-buttons_next">
+            <a href="?page={{page_obj.next_page_number}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Siguiente</a>
+        </li>  
+        {%endif%} 
+</div>
+
+{% endblock %}
+
+
+
+
